@@ -366,6 +366,60 @@
             opacity: 1;
         }
 
+        .pm-inline-check {
+            display: flex;
+            align-items: center;
+        }
+
+        .pm-inline-select {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .pm-inline-label {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--pm-border);
+            border-radius: 12px;
+            background: linear-gradient(180deg, var(--pm-bg-secondary), var(--pm-bg));
+            box-shadow: var(--pm-shadow-sm);
+            cursor: pointer;
+            transition: var(--pm-transition);
+            color: var(--pm-text-muted);
+        }
+
+        .pm-inline-label:hover {
+            border-color: var(--pm-border-hover);
+            color: var(--pm-text);
+            transform: translateY(-1px);
+            box-shadow: var(--pm-shadow);
+        }
+
+        .pm-inline-select:checked + .pm-inline-label {
+            border-color: var(--pm-primary);
+            color: var(--pm-primary);
+            background: rgba(99, 102, 241, 0.08);
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.18);
+        }
+
+        .pm-inline-checkmark {
+            width: 18px;
+            height: 18px;
+            display: block;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: var(--pm-transition);
+        }
+
+        .pm-inline-select:checked + .pm-inline-label .pm-inline-checkmark {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         .pm-btn {
             padding: 11px 16px;
             border: 1px solid transparent;
@@ -1171,6 +1225,7 @@
             const color = colors[Math.abs(paste.id) % colors.length];
 
             const isSelected = this.selectedPastes.has(Number(paste.id));
+            const inlineSelectId = `pm-inline-${paste.id}`;
             const selectIcon = `
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"></polyline>
@@ -1200,6 +1255,14 @@
                         <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-toggle-select ${isSelected ? 'active' : ''}" data-selected="${isSelected}" title="${isSelected ? 'Убрать из выбора' : 'Добавить в выбор'}">
                             ${isSelected ? selectIcon : addIcon}
                         </button>
+                        <div class="pm-inline-check" title="Быстрый выбор перед предпросмотром">
+                            <input type="checkbox" class="pm-inline-select" id="${inlineSelectId}" ${isSelected ? 'checked' : ''} aria-label="Выбрать пасту ${this.escapeHtml(paste.name)}">
+                            <label for="${inlineSelectId}" class="pm-inline-label">
+                                <svg class="pm-inline-checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </label>
+                        </div>
                         <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-preview" title="Предпросмотр">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -1277,6 +1340,14 @@
                         e.stopPropagation();
                         const shouldSelect = selectToggleBtn.dataset.selected !== 'true';
                         this.toggleSelection(pasteId, shouldSelect);
+                    });
+                }
+
+                const inlineSelector = item.querySelector('.pm-inline-select');
+                if (inlineSelector) {
+                    inlineSelector.addEventListener('change', (e) => {
+                        e.stopPropagation();
+                        this.toggleSelection(pasteId, inlineSelector.checked);
                     });
                 }
 
@@ -1444,6 +1515,9 @@
                 item.classList.toggle('selected', isSelected);
                 const checkbox = item.querySelector('.pm-item-select');
                 if (checkbox) checkbox.checked = isSelected;
+
+                const inlineCheckbox = item.querySelector('.pm-inline-select');
+                if (inlineCheckbox) inlineCheckbox.checked = isSelected;
 
                 const selectToggleBtn = item.querySelector('.pm-btn-toggle-select');
                 if (selectToggleBtn) {
