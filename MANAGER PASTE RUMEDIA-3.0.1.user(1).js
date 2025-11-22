@@ -27,31 +27,31 @@
         STORAGE_KEY: 'paste_manager_settings'
     };
 
-    // Enhanced CSS with modern design system
+    // Refreshed CSS with simplified design
     const STYLES = `
         :root {
-            --pm-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            --pm-primary-hover: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
-            --pm-success: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            --pm-danger: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-            --pm-warning: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-            --pm-bg: #ffffff;
-            --pm-bg-secondary: #f8fafc;
-            --pm-bg-tertiary: #e2e8f0;
-            --pm-text: #0f172a;
-            --pm-text-secondary: #475569;
-            --pm-text-muted: #64748b;
-            --pm-border: #e2e8f0;
-            --pm-border-hover: #cbd5e0;
+            --pm-primary: #6366f1;
+            --pm-primary-hover: #4f46e5;
+            --pm-success: #22c55e;
+            --pm-danger: #ef4444;
+            --pm-warning: #f59e0b;
+            --pm-bg: #f9fafb;
+            --pm-bg-secondary: #ffffff;
+            --pm-bg-tertiary: #eef2f7;
+            --pm-text: #111827;
+            --pm-text-secondary: #4b5563;
+            --pm-text-muted: #6b7280;
+            --pm-border: #e5e7eb;
+            --pm-border-hover: #cbd5e1;
             --pm-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --pm-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --pm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --pm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --pm-radius: 20px;
-            --pm-radius-md: 16px;
-            --pm-radius-sm: 12px;
-            --pm-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --pm-backdrop: rgba(15, 23, 42, 0.75);
+            --pm-shadow: 0 6px 20px rgba(17, 24, 39, 0.08);
+            --pm-shadow-lg: 0 15px 35px rgba(17, 24, 39, 0.12);
+            --pm-shadow-xl: 0 24px 60px rgba(17, 24, 39, 0.14);
+            --pm-radius: 14px;
+            --pm-radius-md: 12px;
+            --pm-radius-sm: 10px;
+            --pm-transition: all 0.2s ease;
+            --pm-backdrop: rgba(17, 24, 39, 0.55);
         }
 
         [data-theme="dark"] {
@@ -63,7 +63,7 @@
             --pm-text-muted: #a0aec0;
             --pm-border: #4a5568;
             --pm-border-hover: #718096;
-            --pm-backdrop: rgba(0, 0, 0, 0.9);
+            --pm-backdrop: rgba(0, 0, 0, 0.8);
         }
 
         .pm-overlay {
@@ -98,6 +98,7 @@
             transition: var(--pm-transition);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             border: 1px solid var(--pm-border);
+            background-image: none;
         }
 
         .pm-overlay.active .pm-modal {
@@ -105,16 +106,16 @@
         }
 
         .pm-header {
-            padding: 28px 32px;
+            padding: 20px 24px;
             border-bottom: 1px solid var(--pm-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(135deg, var(--pm-bg-secondary) 0%, var(--pm-bg) 100%);
+            background: var(--pm-bg-secondary);
         }
 
         .pm-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--pm-text);
             margin: 0;
@@ -126,12 +127,12 @@
         .pm-title-icon {
             width: 28px;
             height: 28px;
-            background: var(--pm-primary);
-            border-radius: var(--pm-radius-sm);
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--pm-primary);
         }
 
         .pm-controls {
@@ -143,9 +144,9 @@
         .pm-theme-toggle {
             background: none;
             border: 1px solid var(--pm-border);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -162,9 +163,9 @@
         .pm-close {
             background: none;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -174,12 +175,12 @@
         }
 
         .pm-close:hover {
-            background: var(--pm-danger);
-            color: white;
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--pm-danger);
         }
 
         .pm-body {
-            padding: 32px;
+            padding: 24px;
             max-height: 60vh;
             overflow-y: auto;
             scrollbar-width: thin;
@@ -201,13 +202,13 @@
 
         .pm-search {
             position: relative;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .pm-search-input {
             width: 100%;
-            padding: 16px 48px 16px 20px;
-            border: 2px solid var(--pm-border);
+            padding: 14px 44px 14px 16px;
+            border: 1px solid var(--pm-border);
             border-radius: var(--pm-radius-md);
             font-size: 16px;
             background: var(--pm-bg);
@@ -218,7 +219,7 @@
         .pm-search-input:focus {
             outline: none;
             border-color: var(--pm-primary);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
         }
 
         .pm-search-icon {
@@ -229,18 +230,43 @@
             color: var(--pm-text-muted);
         }
 
+        .pm-selection-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--pm-bg-secondary);
+            border: 1px solid var(--pm-border);
+            border-radius: var(--pm-radius-md);
+            padding: 12px 14px;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pm-selection-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--pm-text);
+        }
+
+        .pm-selection-info small {
+            color: var(--pm-text-muted);
+            font-weight: 400;
+        }
+
         .pm-list {
             display: grid;
-            gap: 16px;
+            gap: 12px;
         }
 
         .pm-item {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 20px;
+            padding: 14px 16px;
             background: var(--pm-bg-secondary);
-            border: 2px solid var(--pm-border);
+            border: 1px solid var(--pm-border);
             border-radius: var(--pm-radius-md);
             transition: var(--pm-transition);
             cursor: pointer;
@@ -248,10 +274,10 @@
         }
 
         .pm-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--pm-shadow-lg);
+            transform: translateY(-1px);
+            box-shadow: var(--pm-shadow);
             border-color: var(--pm-primary);
-            background: var(--pm-bg);
+            background: var(--pm-bg-secondary);
         }
 
         .pm-item:hover::after {
@@ -274,6 +300,12 @@
             background: var(--pm-bg);
         }
 
+        .pm-item.selected {
+            border-color: var(--pm-primary);
+            box-shadow: var(--pm-shadow-sm);
+            background: rgba(99, 102, 241, 0.04);
+        }
+
         .pm-item-icon {
             width: 48px;
             height: 48px;
@@ -291,6 +323,19 @@
             min-width: 0;
         }
 
+        .pm-item-selector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pm-item-select {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
         .pm-item-name {
             font-weight: 600;
             color: var(--pm-text);
@@ -306,7 +351,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-            max-width: 300px;
+            max-width: 360px;
         }
 
         .pm-item-meta {
@@ -317,18 +362,13 @@
 
         .pm-item-actions {
             display: flex;
-            gap: 8px;
-            opacity: 0;
-            transition: var(--pm-transition);
-        }
-
-        .pm-item:hover .pm-item-actions {
+            gap: 6px;
             opacity: 1;
         }
 
         .pm-btn {
-            padding: 12px 20px;
-            border: none;
+            padding: 11px 16px;
+            border: 1px solid transparent;
             border-radius: var(--pm-radius-sm);
             font-size: 14px;
             font-weight: 600;
@@ -372,7 +412,7 @@
         }
 
         .pm-btn-secondary {
-            background: var(--pm-bg-tertiary);
+            background: var(--pm-bg-secondary);
             color: var(--pm-text);
             border: 1px solid var(--pm-border);
         }
@@ -391,11 +431,27 @@
             filter: brightness(1.1);
         }
 
+        .pm-btn-toggle-select {
+            border-style: dashed;
+        }
+
+        .pm-btn-toggle-select.active {
+            background: rgba(99, 102, 241, 0.12);
+            border-color: var(--pm-primary);
+            color: var(--pm-primary);
+        }
+
         .pm-btn-icon {
             padding: 8px;
             width: 36px;
             height: 36px;
             justify-content: center;
+        }
+
+        .pm-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .pm-form {
@@ -847,6 +903,8 @@
             this.filteredPastes = [];
             this.allPastes = [];
             this.settings = this.loadSettings();
+            this.selectedPastes = new Set();
+            this.selectedOrder = [];
 
             this.init();
         }
@@ -1042,6 +1100,7 @@
             try {
                 this.allPastes = await this.api.getPastes();
                 this.filteredPastes = [...this.allPastes];
+                this.resetSelection();
                 this.renderList();
             } catch (error) {
                 content.innerHTML = `
@@ -1081,6 +1140,20 @@
                         </svg>
                     </div>
                 </div>
+                <div class="pm-selection-bar">
+                    <div class="pm-selection-info">
+                        <span class="pm-multi-count">${this.selectedOrder.length}</span>
+                        <small>выбрано для вставки</small>
+                    </div>
+                    <div class="pm-selection-actions">
+                        <button class="pm-btn pm-btn-primary pm-btn-multi" ${this.selectedOrder.length ? '' : 'disabled'}>
+                            Добавить выбранные
+                        </button>
+                        <button class="pm-btn pm-btn-secondary pm-btn-clear-selection" ${this.selectedOrder.length ? '' : 'disabled'}>
+                            Сбросить выбор
+                        </button>
+                    </div>
+                </div>
                 <div class="pm-list">
                     ${this.filteredPastes.length === 0 ?
                         '<div class="pm-empty"><h3>Пасты не найдены</h3><p>Попробуйте изменить запрос</p></div>' :
@@ -1090,16 +1163,33 @@
             `;
 
             this.bindListEvents();
+            this.updateSelectionUI();
         }
 
         renderPasteItem(paste) {
             const colors = ['#667eea', '#764ba2', '#11998e', '#38ef7d', '#ff416c', '#f093fb'];
             const color = colors[Math.abs(paste.id) % colors.length];
 
+            const isSelected = this.selectedPastes.has(Number(paste.id));
+            const selectIcon = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            `;
+            const addIcon = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            `;
+
             return `
-                <div class="pm-item" data-paste-id="${paste.id}">
-                    <div class="pm-item-icon" style="background: ${color}">
-                        ${paste.name.charAt(0).toUpperCase()}
+                <div class="pm-item ${isSelected ? 'selected' : ''}" data-paste-id="${paste.id}">
+                    <div class="pm-item-selector">
+                        <input type="checkbox" class="pm-item-select" ${isSelected ? 'checked' : ''} aria-label="Выбрать пасту ${this.escapeHtml(paste.name)}">
+                        <div class="pm-item-icon" style="background: ${color}">
+                            ${paste.name.charAt(0).toUpperCase()}
+                        </div>
                     </div>
                     <div class="pm-item-content">
                         <h3 class="pm-item-name">${this.escapeHtml(paste.name)}</h3>
@@ -1107,6 +1197,9 @@
                         <div class="pm-item-meta">${paste.wordCount} слов</div>
                     </div>
                     <div class="pm-item-actions">
+                        <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-toggle-select ${isSelected ? 'active' : ''}" data-selected="${isSelected}" title="${isSelected ? 'Убрать из выбора' : 'Добавить в выбор'}">
+                            ${isSelected ? selectIcon : addIcon}
+                        </button>
                         <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-preview" title="Предпросмотр">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -1149,9 +1242,43 @@
                 }, CONFIG.DEBOUNCE_DELAY));
             }
 
+            const multiBtn = this.modal.querySelector('.pm-btn-multi');
+            if (multiBtn) {
+                multiBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.insertMultiplePastes();
+                });
+            }
+
+            const clearSelectionBtn = this.modal.querySelector('.pm-btn-clear-selection');
+            if (clearSelectionBtn) {
+                clearSelectionBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.resetSelection();
+                    this.updateSelectionUI();
+                });
+            }
+
             // Bind paste item events
             this.modal.querySelectorAll('.pm-item').forEach(item => {
                 const pasteId = item.dataset.pasteId;
+
+                const selectorToggle = item.querySelector('.pm-item-select');
+                if (selectorToggle) {
+                    selectorToggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.toggleSelection(pasteId, selectorToggle.checked);
+                    });
+                }
+
+                const selectToggleBtn = item.querySelector('.pm-btn-toggle-select');
+                if (selectToggleBtn) {
+                    selectToggleBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const shouldSelect = selectToggleBtn.dataset.selected !== 'true';
+                        this.toggleSelection(pasteId, shouldSelect);
+                    });
+                }
 
                 // Click on item to use paste
                 item.addEventListener('click', (e) => {
@@ -1187,70 +1314,8 @@
             if (!paste) return;
 
             try {
-                let targetField = null;
-
-                // Priority order for finding target fields
-                const selectors = [
-                    '.emojionearea-editor', // Original selector from your code
-                    'textarea:focus',
-                    'input[type="text"]:focus',
-                    '[contenteditable="true"]:focus',
-                    document.activeElement, // Currently focused element
-                    '.emojionearea-editor', // Second try for emoji editor
-                    'textarea',
-                    'input[type="text"]',
-                    'input:not([type])',
-                    '[contenteditable="true"]',
-                    '.editor', // Common editor class
-                    '.text-editor',
-                    '.content-editor'
-                ];
-
-                // Try each selector until we find a field
-                for (const selector of selectors) {
-                    if (typeof selector === 'string') {
-                        const element = document.querySelector(selector);
-                        if (element && this.isValidInputElement(element)) {
-                            targetField = element;
-                            break;
-                        }
-                    } else if (selector && this.isValidInputElement(selector)) {
-                        targetField = selector;
-                        break;
-                    }
-                }
-
-                if (targetField) {
-                    const content = paste.content.replace(/<br\s*\/?>/gi, '\n');
-                    const username = this.getUsername();
-                    const processedContent = content + (username ? ` - ${username}` : '');
-
-                    if (targetField.contentEditable === 'true' || targetField.classList.contains('emojionearea-editor')) {
-                        // For contenteditable elements (like emoji editor)
-                        const formattedContent = processedContent.replace(/\n/g, '<br>');
-                        targetField.innerHTML += formattedContent;
-                    } else {
-                        // For regular input/textarea elements
-                        targetField.value += processedContent;
-                    }
-
-                    // Trigger events to notify the page of changes
-                    const events = ['input', 'change', 'keyup', 'blur'];
-                    events.forEach(eventType => {
-                        targetField.dispatchEvent(new Event(eventType, { bubbles: true }));
-                    });
-
-                    // Focus and place cursor at end
-                    targetField.focus();
-                    if (targetField.setSelectionRange && typeof targetField.value === 'string') {
-                        targetField.setSelectionRange(targetField.value.length, targetField.value.length);
-                    }
-
-                    this.showNotification(`Паста "${paste.name}" вставлена успешно`, 'success');
-                    this.hide();
-                } else {
-                    this.showNotification('Не найдено поле для вставки. Кликните на поле ввода и попробуйте снова.', 'error');
-                }
+                const content = this.formatPasteContent(paste);
+                await this.insertContentToField(content, `Паста "${paste.name}" вставлена успешно`);
             } catch (error) {
                 console.error('Error inserting paste:', error);
                 this.showNotification('Ошибка при вставке пасты', 'error');
@@ -1267,6 +1332,157 @@
             const isNotDisabled = !element.disabled;
 
             return (isInput || isContentEditable) && isVisible && isNotDisabled;
+        }
+
+        findTargetField() {
+            const selectors = [
+                '.emojionearea-editor',
+                'textarea:focus',
+                'input[type="text"]:focus',
+                '[contenteditable="true"]:focus',
+                document.activeElement,
+                '.emojionearea-editor',
+                'textarea',
+                'input[type="text"]',
+                'input:not([type])',
+                '[contenteditable="true"]',
+                '.editor',
+                '.text-editor',
+                '.content-editor'
+            ];
+
+            for (const selector of selectors) {
+                if (typeof selector === 'string') {
+                    const element = document.querySelector(selector);
+                    if (element && this.isValidInputElement(element)) {
+                        return element;
+                    }
+                } else if (selector && this.isValidInputElement(selector)) {
+                    return selector;
+                }
+            }
+
+            return null;
+        }
+
+        formatPasteContent(paste) {
+            const content = paste.content.replace(/<br\s*\/?>/gi, '\n');
+            const username = this.getUsername();
+            const suffix = username ? ` - ${username}` : '';
+            return `${content}${suffix}`;
+        }
+
+        async insertContentToField(content, successMessage) {
+            const targetField = this.findTargetField();
+
+            if (!targetField) {
+                this.showNotification('Не найдено поле для вставки. Кликните на поле ввода и попробуйте снова.', 'error');
+                return;
+            }
+
+            if (targetField.contentEditable === 'true' || targetField.classList.contains('emojionearea-editor')) {
+                const formattedContent = content.replace(/\n/g, '<br>');
+                targetField.innerHTML += formattedContent;
+            } else {
+                const existing = typeof targetField.value === 'string' ? targetField.value : '';
+                targetField.value = `${existing}${content}`;
+            }
+
+            ['input', 'change', 'keyup', 'blur'].forEach(eventType => {
+                targetField.dispatchEvent(new Event(eventType, { bubbles: true }));
+            });
+
+            targetField.focus();
+            if (targetField.setSelectionRange && typeof targetField.value === 'string') {
+                targetField.setSelectionRange(targetField.value.length, targetField.value.length);
+            }
+
+            this.showNotification(successMessage, 'success');
+            this.hide();
+        }
+
+        toggleSelection(pasteId, forceState = null) {
+            const id = Number(pasteId);
+            const shouldSelect = forceState !== null ? forceState : !this.selectedPastes.has(id);
+
+            if (shouldSelect) {
+                if (!this.selectedPastes.has(id)) {
+                    this.selectedPastes.add(id);
+                    this.selectedOrder.push(id);
+                }
+            } else {
+                this.selectedPastes.delete(id);
+                this.selectedOrder = this.selectedOrder.filter(existingId => existingId !== id);
+            }
+
+            this.updateSelectionUI();
+        }
+
+        resetSelection() {
+            this.selectedPastes.clear();
+            this.selectedOrder = [];
+            this.updateSelectionUI();
+        }
+
+        updateSelectionUI() {
+            const countElement = this.modal.querySelector('.pm-multi-count');
+            if (countElement) {
+                countElement.textContent = this.selectedOrder.length;
+            }
+
+            const multiBtn = this.modal.querySelector('.pm-btn-multi');
+            const clearSelectionBtn = this.modal.querySelector('.pm-btn-clear-selection');
+            const disableControls = this.selectedOrder.length === 0;
+
+            [multiBtn, clearSelectionBtn].forEach(btn => {
+                if (btn) btn.disabled = disableControls;
+            });
+
+            this.modal.querySelectorAll('.pm-item').forEach(item => {
+                const id = Number(item.dataset.pasteId);
+                const isSelected = this.selectedPastes.has(id);
+                item.classList.toggle('selected', isSelected);
+                const checkbox = item.querySelector('.pm-item-select');
+                if (checkbox) checkbox.checked = isSelected;
+
+                const selectToggleBtn = item.querySelector('.pm-btn-toggle-select');
+                if (selectToggleBtn) {
+                    selectToggleBtn.classList.toggle('active', isSelected);
+                    selectToggleBtn.dataset.selected = isSelected ? 'true' : 'false';
+                    selectToggleBtn.innerHTML = isSelected
+                        ? `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        `
+                        : `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        `;
+                    selectToggleBtn.title = isSelected ? 'Убрать из выбора' : 'Добавить в выбор';
+                    selectToggleBtn.setAttribute('aria-pressed', isSelected);
+                }
+            });
+        }
+
+        async insertMultiplePastes() {
+            const selectedPastes = this.selectedOrder
+                .map(id => this.allPastes.find(paste => paste.id == id))
+                .filter(Boolean);
+
+            if (selectedPastes.length === 0) {
+                this.showNotification('Выберите пасты для вставки', 'error');
+                return;
+            }
+
+            const combinedContent = selectedPastes
+                .map((paste, index) => `${index + 1}. ${this.formatPasteContent(paste).trim()}`)
+                .join('\n\n');
+
+            await this.insertContentToField(combinedContent, 'Выбранные пасты вставлены успешно');
+            this.resetSelection();
         }
 
         showPreview(pasteId) {
