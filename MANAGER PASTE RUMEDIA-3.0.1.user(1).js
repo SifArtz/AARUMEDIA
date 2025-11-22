@@ -431,6 +431,16 @@
             filter: brightness(1.1);
         }
 
+        .pm-btn-toggle-select {
+            border-style: dashed;
+        }
+
+        .pm-btn-toggle-select.active {
+            background: rgba(99, 102, 241, 0.12);
+            border-color: var(--pm-primary);
+            color: var(--pm-primary);
+        }
+
         .pm-btn-icon {
             padding: 8px;
             width: 36px;
@@ -1161,6 +1171,17 @@
             const color = colors[Math.abs(paste.id) % colors.length];
 
             const isSelected = this.selectedPastes.has(Number(paste.id));
+            const selectIcon = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            `;
+            const addIcon = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            `;
 
             return `
                 <div class="pm-item ${isSelected ? 'selected' : ''}" data-paste-id="${paste.id}">
@@ -1176,6 +1197,9 @@
                         <div class="pm-item-meta">${paste.wordCount} слов</div>
                     </div>
                     <div class="pm-item-actions">
+                        <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-toggle-select ${isSelected ? 'active' : ''}" data-selected="${isSelected}" title="${isSelected ? 'Убрать из выбора' : 'Добавить в выбор'}">
+                            ${isSelected ? selectIcon : addIcon}
+                        </button>
                         <button class="pm-btn pm-btn-secondary pm-btn-icon pm-btn-preview" title="Предпросмотр">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -1244,6 +1268,15 @@
                     selectorToggle.addEventListener('click', (e) => {
                         e.stopPropagation();
                         this.toggleSelection(pasteId, selectorToggle.checked);
+                    });
+                }
+
+                const selectToggleBtn = item.querySelector('.pm-btn-toggle-select');
+                if (selectToggleBtn) {
+                    selectToggleBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const shouldSelect = selectToggleBtn.dataset.selected !== 'true';
+                        this.toggleSelection(pasteId, shouldSelect);
                     });
                 }
 
@@ -1411,6 +1444,26 @@
                 item.classList.toggle('selected', isSelected);
                 const checkbox = item.querySelector('.pm-item-select');
                 if (checkbox) checkbox.checked = isSelected;
+
+                const selectToggleBtn = item.querySelector('.pm-btn-toggle-select');
+                if (selectToggleBtn) {
+                    selectToggleBtn.classList.toggle('active', isSelected);
+                    selectToggleBtn.dataset.selected = isSelected ? 'true' : 'false';
+                    selectToggleBtn.innerHTML = isSelected
+                        ? `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        `
+                        : `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        `;
+                    selectToggleBtn.title = isSelected ? 'Убрать из выбора' : 'Добавить в выбор';
+                    selectToggleBtn.setAttribute('aria-pressed', isSelected);
+                }
             });
         }
 
