@@ -1438,9 +1438,7 @@
 
         formatPasteContent(paste) {
             const content = paste.content.replace(/<br\s*\/?>/gi, '\n');
-            const username = this.getUsername();
-            const suffix = username ? ` - ${username}` : '';
-            return `${content}${suffix}`;
+            return content;
         }
 
         async insertContentToField(content, successMessage) {
